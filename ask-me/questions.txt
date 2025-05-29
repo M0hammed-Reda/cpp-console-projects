@@ -1,0 +1,8 @@
+14,-1,2,1,0,Are you love programming?,
+2,-1,5,4,1,What's the deadline for the project?,
+3,2,4,5,0,"About your previous answer, can you explain more?",I meant you should focus on part B first
+4,-1,3,1,1,Can we meet tomorrow to discuss my grade?,
+17,-1,1,3,1,Should be blocked,
+18,-1,2,1,0,Integration test question?,Integration test answer
+5,-1,1,2,0,Did you check the server logs?,"Yes, eveything okay."
+13,12,3,5,1,Are adding thread question work well?,I am edit the question
