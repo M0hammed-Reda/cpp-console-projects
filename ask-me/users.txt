@@ -1,0 +1,5 @@
+999,Test Admin,admin,admin,admin@test.com,0,0
+4,Karim Sami,karim000,karim_s,karim@gmail.net,1,1
+3,Ali Mahmoud,ali789,ali_m,ali@gmail.com,1,1
+2,Ahmed Reda,ahmed456,ahmed_h,ahmed@gmail.com,0,1
+1,Mohamed Reda,mohamed123,mohamed_reda,mohamed@gmail.com,1,0

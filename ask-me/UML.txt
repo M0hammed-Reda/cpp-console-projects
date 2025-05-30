@@ -1,0 +1,130 @@
+@startuml
+    class User {
+        - int id
+        - string name
+        - string password
+        - string username
+        - string email
+        - bool allow_anonymous_questions
+        - enum Role { ADMIN, REGULAR_USER }
+        + getId() int
+        + getName() string
+        + getUsername() string
+        + getEmail() string
+        + getAllowAnonymousQuestions() bool
+        + getRole() Role
+        + setAllowAnonymousQuestions(bool)
+        + verifyPassword(string) bool
+        + toString() string
+    }
+    
+    class Question {
+        - int id
+        - int parent_id
+        - int from_user_id
+        - int to_user_id
+        - bool is_anonymous
+        - string text
+        - string answer
+        + getId() int
+        + getParentId() int
+        + getFromUserId() int
+        + getToUserId() int
+        + getIsAnonymous() bool
+        + getText() string
+        + getAnswer() string
+        + setAnswer(string)
+        + isAnswered() bool
+        + toString() string
+        - escapeCommas(string) string
+    }
+    
+    class FileManager {
+        - string users_file_path
+        - string questions_file_path
+        + FileManager(string, string)
+        + ReadInformationFromFile(string) vector<string>
+        + StoreInformationOnFile(string, vector<string>) bool
+        + LoadUsers() unordered_map<int, User>
+        + LoadQuestions() unordered_map<int, Question>
+        + SaveUsers(unordered_map<int, User>) bool
+        + SaveQuestions(unordered_map<int, Question>) bool
+        - split(string, char) vector<string>
+    }
+    
+    class AuthService {
+        - unordered_map<int, User> users
+        - UserManager& user_manager
+        - FileManager file_manager
+        - User current_user
+        - bool is_logged_in
+        + AuthService(UserManager&)
+        + Login()
+        + SignUp()
+        + GetCurrentUser() User
+        + IsLoggedIn() bool
+        + Logout()
+    }
+    
+    class QuestionManager {
+        - unordered_map<int, Question> questions
+        - UserManager& user_manager
+        - FileManager file_manager
+        + QuestionManager(UserManager&)
+        + GetNextQuestionID() int
+        + AddQuestion(Question) bool
+        + UpdateQuestion(Question) bool
+        + AskQuestion(User)
+        + AnswerQuestion(int)
+        + PrintQuestionsToUser(int)
+        + PrintQuestionsFromUser(int)
+        + GetThreadQuestions()
+        + GetFeed(User)
+        + DeleteQuestion(int, User) bool
+        + DeleteThreadQuestions(int, User)
+        - PrintQuestion(Question, bool)
+    }
+    
+    class UserManager {
+        - unordered_map<int, User> users
+        - FileManager file_manager
+        + UserManager()
+        + UserManager(FileManager&)
+        + ListSystemUsers()
+        + UpdateUser(User) bool
+        + GetUserByID(int) User&
+        + AddUser(User) bool
+        + GetNextUserID() int
+        + DeleteUser(int) bool
+        + Authenticate(int, string) bool
+    }
+    
+    class AskMeSystem {
+        - AuthService auth_service
+        - UserManager user_manager
+        - QuestionManager question_manager
+        + AskMeSystem()
+        + Run()
+        - PrintHeader(string)
+        - centerAlign(string, int) string
+        - PrintMenuOption(int, string)
+        - PrintDivider()
+        - PrintFooter()
+        - ShowMainMenu()
+        - ShowUserMenu(User)
+        - ShowAdminMenu(User)
+    }
+    
+    AskMeSystem *-- AuthService
+    AskMeSystem *-- UserManager
+    AskMeSystem *-- QuestionManager
+    
+    AuthService --> UserManager
+    
+    QuestionManager o-- Question
+    QuestionManager --> UserManager
+    QuestionManager --> FileManager
+    
+    UserManager o-- User
+    UserManager --> FileManager
+@enduml
