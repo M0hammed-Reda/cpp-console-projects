@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.cpp": "cpp",
-        "*.h": "cpp",
-        "stdexcept": "cpp",
-        "iostream": "cpp"
-    }
-}
